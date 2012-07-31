@@ -346,7 +346,7 @@ Ext.define('RaxaEmr.Pharmacy.view.prescription', {
                         y: 60,
                         //icon: '../resources/img/pharmacy.'
                         items:[{
-                            html: "<img border=\"0\" src=\"../../resources/img/pharmacy.png\" alt=\"Patient Image\" width=\"110\" height=\"110\" />"
+                            html: "<img border=\"0\" src=\"../resources/img/pharmacy.png\" alt=\"Patient Image\" width=\"110\" height=\"110\" />"
                         }]
                     //TODO: patient image
                     },

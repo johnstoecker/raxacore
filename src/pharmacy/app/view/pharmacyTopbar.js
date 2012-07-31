@@ -30,14 +30,14 @@ Ext.define('RaxaEmr.Pharmacy.view.pharmacyTopbar',{
             xtype: 'image',
             height: 35,
             width: 40,
-            src: '../../resources/img/iconWhite.png'
+            src: '../resources/img/iconWhite.png'
         },
 
         {
             xtype: 'button',
             text: 'Patients',
             //TODO: determine why we need different path for local vs. external host
-            icon: '../../resources/img/miniLogo.png',
+            icon: '../resources/img/miniLogo.png',
             iconAlign: 'top',
             scale: 'large',
             width: 80,
@@ -52,14 +52,14 @@ Ext.define('RaxaEmr.Pharmacy.view.pharmacyTopbar',{
         }, {
             xtype: 'button',
             text: 'Bill Records',
-            icon: '../../resources/img/miniLogo.png',
+            icon: '../resources/img/miniLogo.png',
             iconAlign: 'top',
             scale: 'large',
             width: 80
         }, {
             xtype: 'button',
             text: 'Inventory',
-            icon: '../../resources/img/miniLogo.png',
+            icon: '../resources/img/miniLogo.png',
             iconAlign: 'top',
             scale: 'large',
             width: 80,
@@ -70,7 +70,7 @@ Ext.define('RaxaEmr.Pharmacy.view.pharmacyTopbar',{
         }, {
             xtype: 'button',
             text: 'Reports',
-            icon: '../../resources/img/miniLogo.png',
+            icon: '../resources/img/miniLogo.png',
             iconAlign: 'top',
             scale: 'large',
             width: 80,
@@ -81,7 +81,7 @@ Ext.define('RaxaEmr.Pharmacy.view.pharmacyTopbar',{
         }, {
             xtype: 'button',
             text: 'Admin',
-            icon: '../../resources/img/miniLogo.png',
+            icon: '../resources/img/miniLogo.png',
             iconAlign: 'top',
             scale: 'large',
             width: 80,

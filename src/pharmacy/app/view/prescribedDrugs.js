@@ -102,7 +102,7 @@ Ext.define('RaxaEmr.Pharmacy.view.prescribedDrugs', {
             xtype: 'actioncolumn',
             width: 45,
             items: [{
-                icon: '../../resources/img/edit.png',
+                icon: '../resources/img/edit.png',
                 tooltip: 'Edit',
                 handler: function(grid, rowIndex, colIndex) {
                     drugEditor.fireEvent('drugEdit', {
@@ -111,7 +111,7 @@ Ext.define('RaxaEmr.Pharmacy.view.prescribedDrugs', {
                     });
                 }
             },{
-                icon: '../../resources/img/edit.png',
+                icon: '../resources/img/edit.png',
                 tooltip: 'Delete',
                 handler: function(grid, rowIndex, colIndex) {
                     drugEditor.fireEvent('drugDelete', {

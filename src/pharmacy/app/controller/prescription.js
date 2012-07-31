@@ -53,7 +53,7 @@ Ext.define("RaxaEmr.Pharmacy.controller.prescription", {
                     Ext.getCmp('patientASearchGrid').on('cellClick', function () {
                         console.log('hi');
                         this.patientSelect(Ext.getCmp('patientASearchGrid').getSelectionModel().getSelection()[0].getData());
-                       Ext.getCmp('image').getEl().update("<img border=\"0\" src=\"../../resources/img/pinky.png\" alt=\"Patient Image\" width=\"110\" height=\"110\" />"); 
+                       Ext.getCmp('image').getEl().update("<img border=\"0\" src=\"../resources/img/pinky.png\" alt=\"Patient Image\" width=\"110\" height=\"110\" />"); 
                     }, this)
                     // listner on perscription grid to show drugorder on main grid with more details
                     Ext.getCmp('drugOrderASearchGrid').on('cellClick', function () {
@@ -222,7 +222,7 @@ Ext.define("RaxaEmr.Pharmacy.controller.prescription", {
                 l2.setActiveItem(0);
                 Ext.getCmp('drugASearchGrid').getStore().removeAll();
                 Ext.getCmp('prescriptionDate').setValue('');
-                Ext.getCmp('image').getEl().update("<img border=\"0\" src=\"../../resources/img/pharmacy.png\" alt=\"Patient Image\" width=\"110\" height=\"110\" />"); 
+                Ext.getCmp('image').getEl().update("<img border=\"0\" src=\"../resources/img/pharmacy.png\" alt=\"Patient Image\" width=\"110\" height=\"110\" />"); 
             } else {}
         });
     },
