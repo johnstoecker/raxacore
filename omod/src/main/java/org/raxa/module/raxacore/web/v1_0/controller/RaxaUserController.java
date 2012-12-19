@@ -128,7 +128,7 @@ public class RaxaUserController extends BaseRestController {
 		}
 		PersonAttribute locationAttribute = new PersonAttribute();
 		locationAttribute.setAttributeType(Context.getPersonService().getPersonAttributeTypeByName("Health Center"));
-		locationAttribute.setValue(location.getUuid());
+		locationAttribute.setValue(location.getId().toString());
 		person.addAttribute(locationAttribute);
 		if (post.get("email") != null) {
 			PersonAttribute emailAttribute = new PersonAttribute();
@@ -203,7 +203,7 @@ public class RaxaUserController extends BaseRestController {
 			Iterator<ProviderAttributeType> iter = Context.getProviderService().getAllProviderAttributeTypes().iterator();
 			while (iter.hasNext()) {
 				ProviderAttributeType pAttribType = iter.next();
-				if (pAttribType.getName().equals("isOutPatientDoctor")) {
+				if (pAttribType.getName().equals("isOutpatientDoctor")) {
 					ProviderAttribute pAttrib = new ProviderAttribute();
 					pAttrib.setValue(true);
 					pAttrib.setAttributeType(pAttribType);

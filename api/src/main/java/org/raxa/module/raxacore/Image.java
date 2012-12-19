@@ -28,26 +28,26 @@ import org.openmrs.util.OpenmrsUtil;
 public class Image extends BaseOpenmrsData implements Serializable {
 	
 	private Integer id;
-		
+	
 	private String tags;
 	
-    private String fileName;
-    
-    private Patient patient;
-
-    private Integer patientId;
-		
+	private String fileName;
+	
+	private Patient patient;
+	
+	private Integer patientId;
+	
 	private Provider provider;
-
-    private Integer providerId;
-
-    private Location location;
-    
-    private Integer locationId;
-
-    private byte[] imageData;
-    
-    public Image() {
+	
+	private Integer providerId;
+	
+	private Location location;
+	
+	private Integer locationId;
+	
+	private byte[] imageData;
+	
+	public Image() {
 	}
 	
 	/**
@@ -106,131 +106,131 @@ public class Image extends BaseOpenmrsData implements Serializable {
 		}
 		return this.getId().hashCode();
 	}
-
-    /**
-     * @return the tags
-     */
-    public String getTags() {
-        return tags;
-    }
-
-    /**
-     * @param tags the tags to set
-     */
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    /**
-     * @return the patientId
-     */
-    public Integer getPatientId() {
-        return patientId;
-    }
-
-    /**
-     * @param patientId the patientId to set
-     */
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
-    }
-
-    /**
-     * @return the patient
-     */
-    public Patient getPatient() {
-        return patient;
-    }
-
-    /**
-     * @param patient the patient to set
-     */
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    /**
-     * @return the provider
-     */
-    public Provider getProvider() {
-        return provider;
-    }
-
-    /**
-     * @param provider the provider to set
-     */
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
-    /**
-     * @return the providerId
-     */
-    public Integer getProviderId() {
-        return providerId;
-    }
-
-    /**
-     * @param providerId the providerId to set
-     */
-    public void setProviderId(Integer providerId) {
-        this.providerId = providerId;
-    }
-
-    /**
-     * @return the location
-     */
-    public Location getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    /**
-     * @return the locationId
-     */
-    public Integer getLocationId() {
-        return locationId;
-    }
-
-    /**
-     * @param locationId the locationId to set
-     */
-    public void setLocationId(Integer locationId) {
-        this.locationId = locationId;
-    }
-
-    /**
-     * @return the imageData
-     */
-    public byte[] getImageData() {
-        return imageData;
-    }
-
-    /**
-     * @param imageData the imageData to set
-     */
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
-    }
-
-    /**
-     * @return the fileName
-     */
-    public String getFileName() {
-        return fileName;
-    }
-
-    /**
-     * @param fileName the fileName to set
-     */
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-    
+	
+	/**
+	 * @return the tags
+	 */
+	public String getTags() {
+		return tags;
+	}
+	
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	
+	/**
+	 * @return the patientId
+	 */
+	public Integer getPatientId() {
+		return patientId;
+	}
+	
+	/**
+	 * @param patientId the patientId to set
+	 */
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+	
+	/**
+	 * @return the patient
+	 */
+	public Patient getPatient() {
+		return patient;
+	}
+	
+	/**
+	 * @param patient the patient to set
+	 */
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
+	/**
+	 * @return the provider
+	 */
+	public Provider getProvider() {
+		return provider;
+	}
+	
+	/**
+	 * @param provider the provider to set
+	 */
+	public void setProvider(Provider provider) {
+		this.provider = provider;
+	}
+	
+	/**
+	 * @return the providerId
+	 */
+	public Integer getProviderId() {
+		return providerId;
+	}
+	
+	/**
+	 * @param providerId the providerId to set
+	 */
+	public void setProviderId(Integer providerId) {
+		this.providerId = providerId;
+	}
+	
+	/**
+	 * @return the location
+	 */
+	public Location getLocation() {
+		return location;
+	}
+	
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+	
+	/**
+	 * @return the locationId
+	 */
+	public Integer getLocationId() {
+		return locationId;
+	}
+	
+	/**
+	 * @param locationId the locationId to set
+	 */
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
+	}
+	
+	/**
+	 * @return the imageData
+	 */
+	public byte[] getImageData() {
+		return imageData;
+	}
+	
+	/**
+	 * @param imageData the imageData to set
+	 */
+	public void setImageData(byte[] imageData) {
+		this.imageData = imageData;
+	}
+	
+	/**
+	 * @return the fileName
+	 */
+	public String getFileName() {
+		return fileName;
+	}
+	
+	/**
+	 * @param fileName the fileName to set
+	 */
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
 }

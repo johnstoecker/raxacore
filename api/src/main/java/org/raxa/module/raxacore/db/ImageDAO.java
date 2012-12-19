@@ -60,15 +60,6 @@ public interface ImageDAO {
 	public Image getImageByUuid(String uuid);
 	
 	/**
-	 * Find {@link Image} matching a name
-	 * 
-	 * @param name
-	 * @return {@link Image}
-	 * @should get a image by name
-	 */
-	public List<Image> getImagesByName(String name);
-	
-	/**
 	 * Find {@link Image} matching a tag
 	 * 
 	 * @param tag
@@ -76,7 +67,7 @@ public interface ImageDAO {
 	 * @should get images by tag
 	 */
 	public List<Image> getImagesByTag(String tag);
-
+	
 	/**
 	 * Find {@link Image} updated latest matching a tag
 	 * 
@@ -85,8 +76,8 @@ public interface ImageDAO {
 	 * @should get images by tag
 	 */
 	public Image getLatestImageByTag(String tag);
-
-    /**
+	
+	/**
 	 * Find {@link Image} matching providerId
 	 * 
 	 * @param providerId
@@ -126,4 +117,6 @@ public interface ImageDAO {
 	public Image voidImage(Image image, String reason);
 	
 	public List<Image> getImagesByLocationId(Integer locationId);
+	
+	public Image getLatestImageByTagForPatient(String tag, Integer id);
 }

@@ -19,29 +19,33 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Transactional
-public interface ImageService extends OpenmrsService{
-
-    void setImageDAO(ImageDAO dao);
-    
-    Image saveImage(Image image);
+public interface ImageService extends OpenmrsService {
+	
+	void setImageDAO(ImageDAO dao);
+	
+	Image saveImage(Image image);
 	
 	Image getImageByUuid(String uuid);
 	
 	List<Image> getAllImages();
-	
-	List<Image> getImagesByName(String name);
 	
 	Image updateImage(Image image);
 	
 	void deleteImage(Image image);
 	
 	List<Image> getImagesByProviderUuid(String providerUuid);
-
-	List<Image> getImagesByPatientUuid(String patientUuid);    
-    
+	
+	List<Image> getImagesByPatientUuid(String patientUuid);
+	
 	List<Image> getImagesByLocationUuid(String locationUuid);
 	
 	List<Image> getImagesByTag(String tag);
-    
-    Image getLatestImageByTag(String tag);
+	
+	Image getLatestImageByTag(String tag);
+	
+	Image getLatestImageByTagForPatient(String tag, String patientUuid);
+	
+	String getPath(Image image);
+	
+	String getImageDirectory();
 }

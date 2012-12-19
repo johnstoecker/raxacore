@@ -19,4 +19,5 @@
     <raxacore_image image_id="2" file_name="mytest2.jpg" creator="1" voided="false" uuid="68547121-1b70-465c-99ee-c9dfd06e7e58" date_created="2012-01-01 00:00:00.0" tags="test profile pic" provider_id="2" patient_id="2" location_id="2"/>
     <patient_identifier_type patient_identifier_type_id="10" name="RaxaEMR Identifier Number" description="Unique number used in RaxaEMR" format="" check_digit="false" creator="1" date_created="2005-09-22 00:00:00.0" required="false" retired="false" uuid="2a667fe9-38bc-4ab3-b180-320988c0b968"/>
     <person_attribute_type person_attribute_type_id="15" name="Health Center" description="Location" format="org.openmrs.location" searchable="true" creator="1" date_created="2007-05-04 09:59:23.0" retired="false" uuid="b3b6d540-a32e-44c7-91b3-492d97667518" sort_weight="1"/>
+    <person_attribute person_attribute_id="26" person_id="1" person_attribute_type_id="15" value="2" creator="1" date_created="2007-05-04 09:59:23.0" voided="false" uuid="b3b6d540-c28e-44c7-91b3-492d97667518"/>
 </dataset>

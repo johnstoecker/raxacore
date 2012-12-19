@@ -9,15 +9,14 @@
         <id name="id" column="image_id">
             <generator class="native"/>
         </id>
-        <property name="name"                     type="java.lang.String"        column="name" length="255"/>
         <property name="fileName"                 type="java.lang.String"        column="file_name" length="255"/>
+        <property name="tags"                     type="java.lang.String"        column="tags" length="2000"/>
         <property name="patientId"                type="java.lang.Integer"       column="patient_id" insert="false" update="false"/>
         <many-to-one name="patient"               class="org.openmrs.Patient"    column="patient_id"/>
         <property name="locationId"               type="java.lang.Integer"       column="location_id" insert="false" update="false"/>
         <many-to-one name="location"              class="org.openmrs.Location"   column="location_id"/>
         <property name="providerId"               type="java.lang.Integer"       column="provider_id" insert="false" update="false"/>
         <many-to-one name="provider"              class="org.openmrs.Provider"   column="provider_id"/>
-        <property name="description"              type="java.lang.String"        column="description" length="2000"/>
         <property name="uuid"                     type="java.lang.String"        column="uuid" length="38" not-null="true" unique="true"/>
         <many-to-one name="creator"               class="org.openmrs.User"       column="creator" not-null="true"/>
         <property name="dateCreated"              type="java.util.Date"          column="date_created" not-null="true" length="19"/>

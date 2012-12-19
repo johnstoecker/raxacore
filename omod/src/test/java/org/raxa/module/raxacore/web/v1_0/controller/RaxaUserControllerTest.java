@@ -74,6 +74,6 @@ public class RaxaUserControllerTest extends BaseModuleContextSensitiveTest {
 		User u = Context.getUserService().getUserByUsername("johnJames");
 		Provider p = Context.getProviderService().getProviders("Darth Vader", null, null, null).iterator().next();
 		Assert.assertEquals("Darth Vader", p.getName());
-		Assert.assertEquals("dc5c1fcc-0459-4201-bf70-0b90535ba362", u.getPerson().getAttribute("Health Center").getValue());
+		Assert.assertEquals("1", u.getPerson().getAttribute("Health Center").getValue());
 	}
 }

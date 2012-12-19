@@ -26,8 +26,8 @@ import org.raxa.module.raxacore.db.ImageDAO;
  * specific language governing permissions and limitations under the License.
  */
 
-public class HibernateImageDAO implements ImageDAO{
-
+public class HibernateImageDAO implements ImageDAO {
+	
 	/**
 	 * Hibernate session factory
 	 */
@@ -41,97 +41,87 @@ public class HibernateImageDAO implements ImageDAO{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
-    @Override
-    public Image saveImage(Image image) throws DAOException {
+	
+	@Override
+	public Image saveImage(Image image) throws DAOException {
 		sessionFactory.getCurrentSession().saveOrUpdate(image);
-        return image;
-    }
-
-    @Override
-    public void deleteImage(Image image) throws DAOException {
+		return image;
+	}
+	
+	@Override
+	public void deleteImage(Image image) throws DAOException {
 		sessionFactory.getCurrentSession().delete(image);
-    }
-
-    @Override
-    public Image getImage(Integer imageID) throws DAOException {
+	}
+	
+	@Override
+	public Image getImage(Integer imageID) throws DAOException {
 		return (Image) sessionFactory.getCurrentSession().get(Image.class, imageID);
-    }
-
-    @Override
-    public List<Image> getImagesByPatientId(Integer patientId) {
+	}
+	
+	@Override
+	public List<Image> getImagesByPatientId(Integer patientId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
 		criteria.add(Restrictions.eq("patientId", patientId));
 		List<Image> images = new ArrayList<Image>();
 		images.addAll(criteria.list());
 		return images;
-    }
-
-    @Override
-    public Image getImageByUuid(String uuid) {
+	}
+	
+	@Override
+	public Image getImageByUuid(String uuid) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
 		criteria.add(Restrictions.eq("uuid", uuid));
 		return (Image) criteria.uniqueResult();
-    }
-
-    @Override
-    public List<Image> getImagesByName(String name) {
+	}
+	
+	@Override
+	public List<Image> getImagesByTag(String tag) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
-		criteria.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
+		criteria.add(Restrictions.like("tags", tag, MatchMode.ANYWHERE));
 		List<Image> images = new ArrayList<Image>();
 		images.addAll(criteria.list());
 		return images;
-    }
-
-    @Override
-    public List<Image> getImagesByTag(String tag) {
+	}
+	
+	@Override
+	public Image getLatestImageByTag(String tag) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
-		criteria.add(Restrictions.like("tag", tag, MatchMode.ANYWHERE));
+		criteria.add(Restrictions.like("tags", tag, MatchMode.ANYWHERE));
+		criteria.addOrder(Order.asc("dateCreated"));
 		List<Image> images = new ArrayList<Image>();
 		images.addAll(criteria.list());
-		return images;
-    }
-
-    @Override
-    public Image getLatestImageByTag(String tag) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
-		criteria.add(Restrictions.like("tag", tag, MatchMode.ANYWHERE));
-        criteria.addOrder(Order.asc("dateCreated"));
-        List<Image> images = new ArrayList<Image>();
-		images.addAll(criteria.list());
-        if(images.size()>0){
-    		return images.get(images.size()-1);
-        }
-        else{
-            return null;
-        }
-    }
-
-    @Override
-    public List<Image> getImagesByProviderId(Integer providerId) {
+		if (images.size() > 0) {
+			return images.get(images.size() - 1);
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Image> getImagesByProviderId(Integer providerId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
 		criteria.add(Restrictions.eq("providerId", providerId));
 		List<Image> images = new ArrayList<Image>();
 		images.addAll(criteria.list());
 		return images;
-    }
-
-    @Override
-    public Image updateImage(Image image) throws DAOException {
+	}
+	
+	@Override
+	public Image updateImage(Image image) throws DAOException {
 		sessionFactory.getCurrentSession().update(image);
 		return image;
-    }
-
-    @Override
-    public List<Image> getAllImages() throws DAOException {
+	}
+	
+	@Override
+	public List<Image> getAllImages() throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
 		List<Image> images = new ArrayList<Image>();
 		images.addAll(criteria.list());
 		return images;
-    }
-
-    @Override
-    public Image voidImage(Image image, String reason) {
+	}
+	
+	@Override
+	public Image voidImage(Image image, String reason) {
 		if (reason == null) {
 			throw new IllegalArgumentException("The argument 'reason' is required and so cannot be null");
 		}
@@ -142,15 +132,30 @@ public class HibernateImageDAO implements ImageDAO{
 		image.setVoidReason(reason);
 		saveImage(image);
 		return image;
-    }
-
-    @Override
-    public List<Image> getImagesByLocationId(Integer locationId) {
+	}
+	
+	@Override
+	public List<Image> getImagesByLocationId(Integer locationId) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
 		criteria.add(Restrictions.eq("locationId", locationId));
 		List<Image> images = new ArrayList<Image>();
 		images.addAll(criteria.list());
 		return images;
-    }
-
+	}
+	
+	@Override
+	public Image getLatestImageByTagForPatient(String tag, Integer patientId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
+		criteria.add(Restrictions.eq("patientId", patientId));
+		criteria.add(Restrictions.like("tags", tag, MatchMode.ANYWHERE));
+		criteria.addOrder(Order.asc("dateCreated"));
+		List<Image> images = new ArrayList<Image>();
+		images.addAll(criteria.list());
+		if (images.size() > 0) {
+			return images.get(images.size() - 1);
+		} else {
+			return null;
+		}
+	}
+	
 }

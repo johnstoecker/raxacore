@@ -825,8 +825,6 @@
             <column name="image_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(255)"/>
-            <column name="description" type="varchar(2000)"/>
             <column name="file_name" type="varchar(255)"/>
             <column name="tags" type="varchar(2000)"/>
             <column name="patient_id" type="int"/>
@@ -886,6 +884,19 @@
                                  referencedColumnNames="location_id"/>
     </changeSet>    
 
+    <changeSet id="2012-11-15_adding_supplier_manufacturer" author="johnstoecker" >
+        <preConditions onFail="MARK_RAN" >
+            <tableExists tableName="raxacore_drug_info" />
+        </preConditions>
+        <comment>
+            Adding supplier/manufacturer fields to raxacore drug info
+        </comment>
+        <addColumn tableName="raxacore_drug_info">
+            <column name="supplier" type="varchar(255)"/>
+            <column name="manufacturer" type="varchar(255)"/>
+            <column name="reorder_level" type="int"/>
+        </addColumn>
+    </changeSet>
 
 
 </databaseChangeLog>
