@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.Order;
 import org.openmrs.User;
 import org.openmrs.Provider;
 import org.openmrs.Person;
@@ -154,6 +155,7 @@ public class PatientListServiceImpl implements PatientListService {
 		List<Patient> notInListPatients = new ArrayList<Patient>();
 		List<Encounter> notInListEncounters = new ArrayList<Encounter>();
 		Location location = null;
+		String containsOrderType = "";
 		String[] queryFields = query.split("&");
 		//if we have an encountertype in our search query, set it
 		for (int i = 0; i < queryFields.length; i++) {
@@ -184,6 +186,8 @@ public class PatientListServiceImpl implements PatientListService {
 			} else if (queryFields[i].indexOf("patient=") != -1) {
 				uuid = queryFields[i].substring(8);
 				patient = Context.getPatientService().getPatientByUuid(uuid);
+			} else if (queryFields[i].indexOf("containsOrderType=") != -1) {
+				containsOrderType = queryFields[i].substring(18);
 			}
 		}
 		List<EncounterType> encTypes = new ArrayList<EncounterType>();
@@ -227,6 +231,7 @@ public class PatientListServiceImpl implements PatientListService {
 				    null, null, null, Boolean.FALSE);
 			}
 		}
+		//refactor this to hash map so double loop is not required
 		if (notInListPatients != null) {
 			Iterator<Encounter> iter = encs.iterator();
 			Iterator<Encounter> iter2;
@@ -245,6 +250,25 @@ public class PatientListServiceImpl implements PatientListService {
 							removed = true;
 						}
 					}
+				}
+			}
+		}
+		if (containsOrderType.equals("drugOrder")) {
+			boolean shouldRemove;
+			Iterator<Encounter> iter = encs.iterator();
+			while (iter.hasNext()) {
+				shouldRemove = true;
+				Encounter currEnc = iter.next();
+				Iterator<Order> orderIter = currEnc.getOrders().iterator();
+				while (orderIter.hasNext()) {
+					Order o = orderIter.next();
+					if (o.isDrugOrder()) {
+						shouldRemove = false;
+						break;
+					}
+				}
+				if (shouldRemove) {
+					iter.remove();
 				}
 			}
 		}

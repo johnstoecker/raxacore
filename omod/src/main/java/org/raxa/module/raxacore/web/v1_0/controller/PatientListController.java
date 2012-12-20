@@ -458,6 +458,12 @@ public class PatientListController extends BaseRestController {
 		if (params.get("provider") != null) {
 			inListQuery += "&provider=" + params.get("provider");
 		}
+		if (params.get("location") != null) {
+			inListQuery += "&location=" + params.get("location");
+		}
+		if (params.get("containsOrderType") != null) {
+			inListQuery += "&containsOrderType=" + params.get("containsOrderType");
+		}
 		String notInListQuery = ("?encounterType=" + params.get("excludeEncounterType") + "&startDate="
 		        + params.get("startDate") + "&endDate=" + params.get("endDate"));
 		if (params.get("patient") != null) {
@@ -465,6 +471,12 @@ public class PatientListController extends BaseRestController {
 		}
 		if (params.get("provider") != null) {
 			notInListQuery += "&provider=" + params.get("provider");
+		}
+		if (params.get("location") != null) {
+			notInListQuery += "&location=" + params.get("location");
+		}
+		if (params.get("containsOrderType") != null) {
+			notInListQuery += "&containsOrderType=" + params.get("containsOrderType");
 		}
 		PatientList inList = new PatientList();
 		inList.setSearchQuery(inListQuery);
@@ -478,7 +490,7 @@ public class PatientListController extends BaseRestController {
 		        .getUuid());
 		
 		PatientList patientList = new PatientList();
-		patientList.setSearchQuery("?" + Joiner.on("&").withKeyValueSeparator("=").join(params));
+		patientList.setSearchQuery(finalQuery);
 		SimpleObject obj = new SimpleObject();
 		obj.add("uuid", patientList.getUuid());
 		obj.add("name", patientList.getName());
@@ -486,19 +498,28 @@ public class PatientListController extends BaseRestController {
 		obj.add("searchQuery", patientList.getSearchQuery());
 		ArrayList patients = new ArrayList();
 		List<Patient> patientsInPatientList = service.getPatientsInPatientList(patientList);
-		
-		//once we have list of patients, now is when we can see if patient belongs to a provider
-		//we have -- list of patients
-		//we need --
+		List<Encounter> encountersInPatientList = service.getEncountersInPatientList(patientList);
 		
 		for (Patient p : patientsInPatientList) {
 			SimpleObject patient = new SimpleObject();
 			patient.add("uuid", p.getUuid());
-			patient.add("display", p.getPersonName().getFullName());
-			patient.add("gender", p.getGender());
-			patient.add("age", p.getAge());
+			SimpleObject person = new SimpleObject();
+			person.add("uuid", p.getUuid());
+			person.add("display", p.getPersonName().getFullName());
+			SimpleObject name = new SimpleObject();
+			name.add("display", p.getPersonName().getFullName());
+			person.add("preferredName", name);
+			person.add("gender", p.getGender());
+			person.add("age", p.getAge());
+			patient.add("person", person);
+			ArrayList identifiers = new ArrayList();
+			SimpleObject id = new SimpleObject();
+			id.add("identifier", p.getPatientIdentifier().getIdentifier());
+			identifiers.add(id);
+			patient.add("identifiers", identifiers);
+			//patient.add("identifiers", p.getActiveIdentifiers());
 			ArrayList encounters = new ArrayList();
-			List<Encounter> encountersInPatientList = service.getEncountersInPatientList(patientList);
+			//TODO: refactor this so we don't have to go through each time
 			for (Encounter e : encountersInPatientList) {
 				if (e.getPatient().equals(p)) {
 					SimpleObject encounter = new SimpleObject();
@@ -511,24 +532,28 @@ public class PatientListController extends BaseRestController {
 					} else {
 						encounter.add("provider", null);
 					}
-					ArrayList obsArray = new ArrayList();
-					Set<Obs> obsAll = e.getObs();
-					for (Obs o : obsAll) {
-						SimpleObject obs = new SimpleObject();
-						obs.add("uuid", o.getUuid());
-						obs.add("display", o.getConcept().getName().getName() + " = "
-						        + o.getValueAsString(request.getLocale()));
-						obs.add("obsDatetime", df.format(o.getObsDatetime()));
-						obs.add("value", o.getValueAsString(request.getLocale()));
-						obs.add("comment", o.getComment());
-						if (o.getOrder() != null) {
-							obs.add("order", o.getOrder().getUuid());
-						} else {
-							obs.add("order", null);
+					if (params.get("containsOrderType") != null) {
+						encounter.add("obs", null);
+					} else {
+						ArrayList obsArray = new ArrayList();
+						Set<Obs> obsAll = e.getObs();
+						for (Obs o : obsAll) {
+							SimpleObject obs = new SimpleObject();
+							obs.add("uuid", o.getUuid());
+							obs.add("display", o.getConcept().getName().getName() + " = "
+							        + o.getValueAsString(request.getLocale()));
+							obs.add("obsDatetime", df.format(o.getObsDatetime()));
+							obs.add("value", o.getValueAsString(request.getLocale()));
+							obs.add("comment", o.getComment());
+							if (o.getOrder() != null) {
+								obs.add("order", o.getOrder().getUuid());
+							} else {
+								obs.add("order", null);
+							}
+							obsArray.add(obs);
 						}
-						obsArray.add(obs);
+						encounter.add("obs", obsArray);
 					}
-					encounter.add("obs", obsArray);
 					encounters.add(encounter);
 				}
 			}

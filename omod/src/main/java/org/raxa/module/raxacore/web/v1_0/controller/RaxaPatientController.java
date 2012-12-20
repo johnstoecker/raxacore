@@ -272,7 +272,7 @@ public class RaxaPatientController extends BaseRestController {
 		SimpleObject obj = new SimpleObject();
 		obj.add("uuid", p.getUuid());
 		obj.add("name", p.getGivenName() + " " + p.getFamilyName());
-		obj.add("identifier", p.getIdentifiers().iterator().next().getIdentifier());
+		obj.add("identifier", p.getPatientIdentifier().getIdentifier());
 		return obj;
 	}
 	

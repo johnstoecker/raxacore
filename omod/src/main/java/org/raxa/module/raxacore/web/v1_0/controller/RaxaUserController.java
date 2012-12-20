@@ -181,7 +181,7 @@ public class RaxaUserController extends BaseRestController {
 		pi.setPreferred(true);
 		Patient patient = new Patient(person);
 		patient.addIdentifier(pi);
-		System.out.println(patient.getIdentifiers().iterator().next().getIdentifier());
+		System.out.println(patient.getPatientIdentifier());
 		int personId = Context.getPatientService().savePatient(patient).getPersonId();
 		return (Context.getPersonService().getPerson(personId));
 	}
