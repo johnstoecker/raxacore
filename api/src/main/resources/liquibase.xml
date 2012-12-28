@@ -218,7 +218,7 @@
     </changeSet>    
 
     <changeSet
-        id="2012-07-27_create_drug_purchase_order_vers5"
+        id="2012-07-27_create_drug_purchase_order_v3"
         author="Abhishek,Jatin,Praneet" >
 
         <preConditions onFail="MARK_RAN" >
@@ -336,7 +336,7 @@
     </changeSet>
 
     <changeSet
-        id="2012-07-27_add_constraints_to_drug_purchase_order_vs5"
+        id="2012-07-27_add_constraints_to_drug_purchase_order_v2"
         author="Abhishek,Jatin,Praneet" >
 
         <preConditions onFail="MARK_RAN" >
@@ -385,7 +385,7 @@
     </changeSet>
 
     <changeSet
-        id="2012-07-27_create_drug_inventory_resource_vs5"
+        id="2012-07-27_create_drug_inventory_resource_v3"
         author="Abhishek,Jatin,Praneet" >
 
         <preConditions onFail="MARK_RAN" >
@@ -538,7 +538,7 @@
     </changeSet>
 
     <changeSet
-        id="2012-07-27_add_constraints_to_drug_inventory_reso_v5"
+        id="2012-07-27_add_constraints_to_drug_inventory_resource_v2"
         author="Abhishek,Jatin,Praneet" >
 
         <preConditions onFail="MARK_RAN" >
@@ -1043,13 +1043,13 @@
             baseTableName="raxacore_billing"
             constraintName="FK_raxacore_billing_provider_id_Provider_provider_id"
             referencedColumnNames="provider_id"
-            referencedTableName="Provider" />
+            referencedTableName="provider" />
          <addForeignKeyConstraint
             baseColumnNames="patient_id"
             baseTableName="raxacore_billing"
             constraintName="FK_raxacore_billing_patient_id_Patient_patient_id"
             referencedColumnNames="patient_id"
-            referencedTableName="Patient" />
+            referencedTableName="patient" />
     </changeSet>
 
    <changeSet
@@ -1220,7 +1220,7 @@
             baseTableName="raxacore_billing_item"
             constraintName="FK_raxacore_billing_item_provider_id_Provider_provider_id"
             referencedColumnNames="provider_id"
-            referencedTableName="Provider" />
+            referencedTableName="provider" />
          <addForeignKeyConstraint
             baseColumnNames="bill_id"
             baseTableName="raxacore_billing_item"
