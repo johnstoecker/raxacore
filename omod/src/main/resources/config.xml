@@ -115,5 +115,8 @@
         RaxacoreDrugInventory.hbm.xml
         RaxacoreDrugInfo.hbm.xml
         RaxacoreImage.hbm.xml
+        RaxacoreBilling.hbm.xml
+        RaxacoreBillingItem.hbm.xml
+        RaxacoreBillingItemAdjustment.hbm.xml     
     </mappingFiles>
 </module>
