@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.openmrs.Encounter;
+import org.openmrs.Patient;
 import org.openmrs.Provider;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.context.Context;
@@ -80,9 +81,16 @@ public class BillingController extends BaseRestController {
 	        throws ResponseException {
 		initBillingController();
 		Billing bill = new Billing();
-		
-		bill.setPatientId(Integer.parseInt(post.get("patientId").toString()));
-		bill.setProviderId(Integer.parseInt(post.get("providerId").toString()));
+		Patient patient = Context.getPatientService().getPatientByUuid(post.get("patient").toString());
+        Provider provider = Context.getProviderService().getProviderByUuid(post.get("provider").toString());
+        if(patient == null){
+            throw new ResponseException("Patient with given uuid not found") {};
+        }
+        if(provider == null){
+            throw new ResponseException("Provider with given uuid not found") {};
+        }
+		bill.setPatientId(patient.getId());
+		bill.setProviderId(provider.getId());
 		bill.setStatus(post.get("status").toString());
 		
 		bill.setBalance(Integer.parseInt(post.get("balance").toString()));
@@ -97,9 +105,9 @@ public class BillingController extends BaseRestController {
 			bill.setDescription(post.get("description").toString());
 		}
 		
-		bill.setProvider(Context.getProviderService().getProvider(Integer.parseInt(post.get("providerId").toString())));
+		bill.setProvider(provider);
 		
-		bill.setPatient(Context.getPatientService().getPatient(Integer.parseInt(post.get("patientId").toString())));
+		bill.setPatient(patient);
 		
 		Billing created;
 		SimpleObject obj = new SimpleObject();
@@ -149,16 +157,20 @@ public class BillingController extends BaseRestController {
 	 * @param request
 	 * @return
 	 * @throws ResponseException
-	 gets all bills by patientID
+	 gets all bills by patientuuid
 	 */
 	@RequestMapping(method = RequestMethod.GET, params = "q")
-	@WSDoc("Gets All bills by patientId")
+	@WSDoc("Gets All bills by patient uuid")
 	@ResponseBody()
-	public String getPatientListsByName(@RequestParam("q") Integer query, HttpServletRequest request)
+	public String getPatientListsByName(@RequestParam("q") String query, HttpServletRequest request)
 	        throws ResponseException {
 		initBillingController();
 		
-		List<Billing> getAllBillsByPatient = service.getAllBillsByPatient(query);
+        Patient patient = Context.getPatientService().getPatientByUuid(query);
+        if(patient == null){
+            throw new ResponseException("Patient with given uuid not found") {};
+        }
+		List<Billing> getAllBillsByPatient = service.getAllBillsByPatient(patient.getId());
 		ArrayList results = new ArrayList();
 		for (Billing patientList : getAllBillsByPatient) {
 			SimpleObject obj = new SimpleObject();
@@ -189,6 +201,7 @@ public class BillingController extends BaseRestController {
 	@ResponseBody()
 	public String getEncountersByPatientId(@RequestParam("v") Integer query, HttpServletRequest request)
 	        throws ResponseException {
+        //TODO: use the encountercontroller for this entire method
 		initBillingController();
 		
 		List<Encounter> all = serve.getEncountersByPatientId(query);
