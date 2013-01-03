@@ -203,7 +203,6 @@ public class BillingController extends BaseRestController {
 	        throws ResponseException {
         //TODO: use the encountercontroller for this entire method
 		initBillingController();
-		
 		List<Encounter> all = serve.getEncountersByPatientId(query);
 		ArrayList results = new ArrayList();
 		for (Encounter patientList : all) {
@@ -212,21 +211,23 @@ public class BillingController extends BaseRestController {
 			obj.add("item_name", "EncounterId:" + patientList.getEncounterId().toString());
 			//	obj.add("providerId", patientList.getProvidersByRoles());
 			obj.add("discountReason", patientList.getDateCreated());
+            
+            obj.add("category", patientList.getEncounterType().getName());
 			
-			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("1") == 0) {
-				obj.add("category", "ADULTINITIAL");
-			}
-			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("2") == 0) {
-				obj.add("category", "ADULTRETURN");
-			}
-
-			else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("5") == 0) {
-				obj.add("category", "OUTPATIENT");
-			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("6") == 0) {
-				obj.add("category", "REGISTRATION");
-			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("7") == 0) {
-				obj.add("category", "PRESCRIPTION");
-			}
+//			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("1") == 0) {
+//				obj.add("category", "ADULTINITIAL");
+//			}
+//			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("2") == 0) {
+//				obj.add("category", "ADULTRETURN");
+//			}
+//
+//			else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("5") == 0) {
+//				obj.add("category", "OUTPATIENT");
+//			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("6") == 0) {
+//				obj.add("category", "REGISTRATION");
+//			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("7") == 0) {
+//				obj.add("category", "PRESCRIPTION");
+//			}
 			
 			obj.add("quantity", "1");
 			obj.add("price", "500");
