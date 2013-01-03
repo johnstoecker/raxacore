@@ -73,6 +73,7 @@ public class RaxaLoginController extends BaseRestController {
 			if (!Context.getProviderService().getProvidersByPerson(p).isEmpty()) {
 				obj.add("providerUuid", Context.getProviderService().getProvidersByPerson(p).iterator().next().getUuid());
 			}
+			obj.add("display", p.getPersonName().getFullName());
 			if (p.getAttribute("Health Center") != null) {
 				obj.add("location", Context.getLocationService().getLocation(
 				    Integer.parseInt(p.getAttribute("Health Center").getValue())).getUuid());

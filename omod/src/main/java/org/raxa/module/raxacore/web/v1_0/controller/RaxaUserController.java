@@ -44,6 +44,7 @@ import org.openmrs.module.webservices.rest.web.annotation.WSDoc;
 import org.openmrs.module.webservices.rest.web.response.ObjectNotFoundException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 import org.openmrs.module.webservices.rest.web.v1_0.controller.BaseRestController;
+import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -161,6 +162,7 @@ public class RaxaUserController extends BaseRestController {
 			user.addRole(Context.getUserService().getRole("Provider"));
 		}
 		User newUser = service.saveUser(user, post.get("password").toString());
+		service.setUserProperty(newUser, OpenmrsConstants.USER_PROPERTY_DEFAULT_LOCATION, location.getId().toString());
 		return RestUtil.created(response, getUserAsSimpleObject(newUser));
 		//		return RestUtil.created(response, getDrugAsSimpleObject(drugJustCreated));
 	}
