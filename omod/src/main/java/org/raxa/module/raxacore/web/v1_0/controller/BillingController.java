@@ -82,13 +82,15 @@ public class BillingController extends BaseRestController {
 		initBillingController();
 		Billing bill = new Billing();
 		Patient patient = Context.getPatientService().getPatientByUuid(post.get("patient").toString());
-        Provider provider = Context.getProviderService().getProviderByUuid(post.get("provider").toString());
-        if(patient == null){
-            throw new ResponseException("Patient with given uuid not found") {};
-        }
-        if(provider == null){
-            throw new ResponseException("Provider with given uuid not found") {};
-        }
+		Provider provider = Context.getProviderService().getProviderByUuid(post.get("provider").toString());
+		if (patient == null) {
+			throw new ResponseException(
+			                            "Patient with given uuid not found") {};
+		}
+		if (provider == null) {
+			throw new ResponseException(
+			                            "Provider with given uuid not found") {};
+		}
 		bill.setPatientId(patient.getId());
 		bill.setProviderId(provider.getId());
 		bill.setStatus(post.get("status").toString());
@@ -166,10 +168,11 @@ public class BillingController extends BaseRestController {
 	        throws ResponseException {
 		initBillingController();
 		
-        Patient patient = Context.getPatientService().getPatientByUuid(query);
-        if(patient == null){
-            throw new ResponseException("Patient with given uuid not found") {};
-        }
+		Patient patient = Context.getPatientService().getPatientByUuid(query);
+		if (patient == null) {
+			throw new ResponseException(
+			                            "Patient with given uuid not found") {};
+		}
 		List<Billing> getAllBillsByPatient = service.getAllBillsByPatient(patient.getId());
 		ArrayList results = new ArrayList();
 		for (Billing patientList : getAllBillsByPatient) {
@@ -201,7 +204,7 @@ public class BillingController extends BaseRestController {
 	@ResponseBody()
 	public String getEncountersByPatientId(@RequestParam("v") Integer query, HttpServletRequest request)
 	        throws ResponseException {
-        //TODO: use the encountercontroller for this entire method
+		//TODO: use the encountercontroller for this entire method
 		initBillingController();
 		List<Encounter> all = serve.getEncountersByPatientId(query);
 		ArrayList results = new ArrayList();
@@ -211,23 +214,23 @@ public class BillingController extends BaseRestController {
 			obj.add("item_name", "EncounterId:" + patientList.getEncounterId().toString());
 			//	obj.add("providerId", patientList.getProvidersByRoles());
 			obj.add("discountReason", patientList.getDateCreated());
-            
-            obj.add("category", patientList.getEncounterType().getName());
 			
-//			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("1") == 0) {
-//				obj.add("category", "ADULTINITIAL");
-//			}
-//			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("2") == 0) {
-//				obj.add("category", "ADULTRETURN");
-//			}
-//
-//			else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("5") == 0) {
-//				obj.add("category", "OUTPATIENT");
-//			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("6") == 0) {
-//				obj.add("category", "REGISTRATION");
-//			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("7") == 0) {
-//				obj.add("category", "PRESCRIPTION");
-//			}
+			obj.add("category", patientList.getEncounterType().getName());
+			
+			//			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("1") == 0) {
+			//				obj.add("category", "ADULTINITIAL");
+			//			}
+			//			if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("2") == 0) {
+			//				obj.add("category", "ADULTRETURN");
+			//			}
+			//
+			//			else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("5") == 0) {
+			//				obj.add("category", "OUTPATIENT");
+			//			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("6") == 0) {
+			//				obj.add("category", "REGISTRATION");
+			//			} else if (patientList.getEncounterType().getEncounterTypeId().toString().compareTo("7") == 0) {
+			//				obj.add("category", "PRESCRIPTION");
+			//			}
 			
 			obj.add("quantity", "1");
 			obj.add("price", "500");

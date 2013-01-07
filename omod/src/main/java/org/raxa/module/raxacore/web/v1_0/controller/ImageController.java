@@ -57,8 +57,6 @@ public class ImageController {
 	
 	ImageService service;
 	
-	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-	
 	Gson gson = new GsonBuilder().serializeNulls().create();
 	
 	private static final String[] SUPPORTED_MIME_TYPES = { "png", "jpeg", "tiff", "gif" };
